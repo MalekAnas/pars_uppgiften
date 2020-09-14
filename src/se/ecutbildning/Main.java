@@ -26,12 +26,15 @@ public class Main {
 
         compareTimeStamps(groupOne, groupTwo, personsWithSameTS);
 
+
+        //print out the hash map
         for (Map.Entry me : personsWithSameTS.entrySet()) {
             System.out.println( me.getKey() + "  And " + me.getValue() + " Have the same time stamp!");
         }
 
 
 
+        //print linked list 1 out
         for (PersonData p : groupOne) {
 
             System.out.println(" Time Stamp: " + p.getTimeStamp()
@@ -52,6 +55,8 @@ public class Main {
 
         }
 
+
+        //print linked list 2 out
         for (PersonData p : groupTwo) {
 
             System.out.println(" Time Stamp: " + p.getTimeStamp()
@@ -72,6 +77,7 @@ public class Main {
 
         }
 
+        
         System.out.println("PPL WITH NAME A: " + personsWithAInName);
         System.out.println("PPL with Same ts:" + personsWithSameTS.size());
         System.out.println("PPL With android:" + personsWorkWithAndroid);
@@ -80,6 +86,7 @@ public class Main {
     }
 
 
+    //Read and Store
     private static void fillGroup(int nameCol, int e_addressCol, LinkedList<PersonData> group) {
 
         String csvFile = "sample.csv";
@@ -127,6 +134,8 @@ public class Main {
         }
     }
 
+
+    //Select the group based on group columns, store them in parametered linked list
     private static void selectGroup(int nameCol, int e_addressCol, LinkedList<PersonData> group, String[] fileData) throws ParseException {
         PersonData personData = new PersonData();
 
@@ -140,7 +149,6 @@ public class Main {
         }
 
 
-//        System.out.println( personData.toString());
     }
 
     private static boolean hasAndroid(String hasAndroid) {
@@ -154,6 +162,7 @@ public class Main {
 
 
 
+    //Compare time stamps between persons in two groups
     public static void compareTimeStamps(LinkedList<PersonData> group1, LinkedList<PersonData> group2, HashMap<String, String> personsWithSameTs){
         int compare;
 
@@ -167,7 +176,6 @@ public class Main {
 
                 compare = ts1.compareTo(ts2);
 
-                System.out.println("Compare Result is : " + compare  );
                 if (compare == 0){
                     personsWithSameTs.put(group1.get(i).getName(), group2.get(j).getName());
                 }
@@ -178,6 +186,7 @@ public class Main {
 
 
 
+    //Check if two persons have the same email address
     public static void sortNamesAndEmails(LinkedList<PersonData> g1, LinkedList<PersonData> g2){
 
         for (int i = 0; i < g1.size(); i++) {
@@ -198,42 +207,6 @@ public class Main {
         }
 
     }
-
-//    //Convert timeStamp from string to
-//
-//    private static String convertTimeStamp(String timeStamp) throws ParseException {
-//
-////         string = "11/27/2012 3:57:36";
-//
-//        DateFormat format = new SimpleDateFormat("MM/d/yyyy HH:mm", Locale.ENGLISH);
-//        Calendar date = Calendar.getInstance();
-//        date.setTime(format.parse(timeStamp));
-//        System.out.println(format.format(date.getTime())); //  11/27/2012 3:57:36
-//
-//        int hours = date.get(Calendar.HOUR_OF_DAY); // 3
-//        int minutes = date.get(Calendar.MINUTE); // 57
-//
-////        date.add(Calendar.HOUR_OF_DAY, 1); // add a hour
-////        date.add(Calendar.MINUTE , 1); // add a minute
-////        System.out.println(format.format(date.getTime())); // 11/27/2012 3:57:36
-//
-//        return format.format(date.getTime());
-//    }
-
-
-//    private void saveCode(){
-//
-//        for ( Person p:   groupOne  ) {
-//
-//            System.out.println(" Time Stamp: "+ p.getTimeStamp()
-//                    +  " Name: " + p.getName()
-//                    +  " E-address: " + p.getEmailAddress()
-//                    +  " Has android: "+ p.isHasAndroid()
-//                    +  " Works with: " + p.isHasAndroid());
-//            System.out.println("******************************************");
-//
-//        }
-//    }
 
 }
 

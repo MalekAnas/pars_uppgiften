@@ -4,13 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.LinkedList;
-import java.util.Locale;
+import java.util.*;
 
 public class Main {
 
@@ -20,7 +15,7 @@ public class Main {
 
         LinkedList<PersonData> groupOne = new LinkedList<>();
         LinkedList<PersonData> groupTwo = new LinkedList<>();
-        ArrayList<PersonData> personsWithSameTS = new ArrayList<>();
+        HashMap<String, String> personsWithSameTS = new HashMap<>();
 
         //
         int personsWithAInName = 0;
@@ -29,8 +24,11 @@ public class Main {
         fillGroup(1, 3, groupOne);
         fillGroup(2, 4, groupTwo);
 
-        compareTimeStamps(groupOne, personsWithSameTS);
+        compareTimeStamps(groupOne, groupTwo, personsWithSameTS);
 
+        for (Map.Entry me : personsWithSameTS.entrySet()) {
+            System.out.println( me.getKey() + "  And " + me.getValue() + " Have the same time stamp!");
+        }
 
 
 
@@ -90,12 +88,17 @@ public class Main {
 
         try {
 
+
+            //Initializing BF obj
             br = new BufferedReader(new FileReader(csvFile));
+
+
             while ((line = br.readLine()) != null) {
 
-                // use comma as separator
+                // use comma as separator and store data into a string array
                 String[] personData = line.split(cvsSplitBy);
 
+                //select group column numbers "name, address" and add it to the linked list
                 selectGroup(nameCol, e_addressCol, group, personData);
 
 
@@ -104,7 +107,6 @@ public class Main {
             //Deletes the first row which is the columns' names
             group.remove(0);
 
-            //Delete empty rows from list
 
 
         } catch (FileNotFoundException e) {
@@ -147,24 +149,29 @@ public class Main {
     }
 
 
-    //method that checks an array of strings, returns true if the arrays is empty
 
 
-    public static void compareTimeStamps(LinkedList<PersonData> personData, ArrayList< PersonData> personswithSameTs) {
+
+
+    public static void compareTimeStamps(LinkedList<PersonData> group1, LinkedList<PersonData> group2, HashMap<String, String> personsWithSameTs){
         int compare;
 
-        for ( int i = 0; i < personData.size()-1; i++) {
+        System.out.println(group1.size());
+        System.out.println(group2.size());
+        for (int i = 0; i < group1.size(); i++) {
+            for (int j = 0 ; j< group2.size(); j++){
 
-            String ts1 = personData.get(i).getTimeStamp();
-            String ts2 = personData.get(i+1).getTimeStamp();
+                String ts1 = group1.get(i).getTimeStamp();
+                String ts2 = group2.get(j).getTimeStamp();
 
-            compare = ts1.compareTo(ts2);
+                compare = ts1.compareTo(ts2);
 
-            System.out.println("Compare Result is : " + compare  );
-            if (compare == 0){
-                personswithSameTs.add(personData.get(i));
-                personswithSameTs.add(personData.get(i+1));
+                System.out.println("Compare Result is : " + compare  );
+                if (compare == 0){
+                    personsWithSameTs.put(group1.get(i).getName(), group2.get(j).getName());
+                }
             }
+
         }
     }
 

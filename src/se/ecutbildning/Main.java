@@ -75,6 +75,7 @@ public class Main {
         System.out.println("PPL WITH NAME A: " + personsWithAInName);
         System.out.println("PPL with Same ts:" + personsWithSameTS.size());
         System.out.println("PPL With android:" + personsWorkWithAndroid);
+        sortNamesAndEmails(groupOne, groupTwo);
 
     }
 
@@ -175,6 +176,28 @@ public class Main {
         }
     }
 
+
+
+    public static void sortNamesAndEmails(LinkedList<PersonData> g1, LinkedList<PersonData> g2){
+
+        for (int i = 0; i < g1.size(); i++) {
+
+            for (int j = 0 ; j< g2.size(); j++){
+
+
+                if (g1.get(i).getEmailAddress().equals(g2.get(j).getEmailAddress())){
+
+                    System.out.println(g1.get(i).getName() + " And " + g1.get(j).getName() + " Have the same email address!");
+
+
+                }
+
+
+            }
+
+        }
+
+    }
 
 //    //Convert timeStamp from string to
 //
